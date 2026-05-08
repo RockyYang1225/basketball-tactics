@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create *)",
+      "Bash(npx create-vite@latest . --template react-ts)",
+      "Bash(npx create-vite@latest *)",
+      "Bash(cp -r temp-scaffold/.gitignore temp-scaffold/README.md temp-scaffold/eslint.config.js temp-scaffold/index.html temp-scaffold/package.json temp-scaffold/tsconfig.app.json temp-scaffold/tsconfig.json temp-scaffold/tsconfig.node.json temp-scaffold/vite.config.ts .)",
+      "Bash(cp -r temp-scaffold/public .)",
+      "Bash(cp -r temp-scaffold/src .)",
+      "Bash(rm -rf temp-scaffold)",
+      "Bash(npm install *)",
+      "Bash(git init *)",
+      "Bash(git commit *)"
+    ]
+  }
+}
