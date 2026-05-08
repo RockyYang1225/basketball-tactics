@@ -1,0 +1,114 @@
+.player-input-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.player-card {
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  background: var(--bg-card);
+  transition: border-color 0.2s;
+}
+.player-card.key-player {
+  border-color: #ffc107;
+  box-shadow: 0 0 8px rgba(255, 193, 7, 0.2);
+}
+.player-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.player-number {
+  font-weight: 700;
+  color: var(--text-secondary);
+  min-width: 28px;
+}
+.player-name-input {
+  flex: 1;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 14px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+.key-toggle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.key-toggle-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.expand-btn {
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.player-card-details {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.tag-section {
+  margin-bottom: 12px;
+}
+.tag-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+.tag-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chip {
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--bg-secondary);
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text-primary);
+  transition: all 0.15s;
+}
+.chip.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.ratings-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.rating-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.rating-label {
+  font-size: 13px;
+  min-width: 50px;
+  color: var(--text-secondary);
+}
+.rating-row input[type='range'] {
+  flex: 1;
+  accent-color: var(--accent);
+}
+.rating-value {
+  font-weight: 600;
+  min-width: 18px;
+  text-align: center;
+}

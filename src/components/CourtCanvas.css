@@ -1,0 +1,51 @@
+.court-canvas-wrapper {
+  margin-top: 12px;
+}
+.court-container {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.court-container canvas {
+  display: block;
+}
+.court-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0;
+  flex-wrap: wrap;
+}
+.court-controls button {
+  padding: 5px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-secondary);
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text-primary);
+}
+.court-controls button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.step-indicator {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0 4px;
+}
+.speed-select, .style-select {
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 13px;
+}
+.step-description {
+  font-size: 14px;
+  color: var(--text-secondary);
+  padding: 4px 0 8px;
+  margin: 0;
+}

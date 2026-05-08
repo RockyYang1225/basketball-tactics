@@ -1,0 +1,74 @@
+.tactics-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.tactic-panel {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--bg-card);
+}
+.tactic-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 16px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+.tactic-header.expanded {
+  border-bottom: 1px solid var(--border);
+}
+.tactic-arrow {
+  font-size: 12px;
+  color: var(--text-secondary);
+  min-width: 14px;
+}
+.tactic-name {
+  font-weight: 700;
+  white-space: nowrap;
+}
+.tactic-desc {
+  flex: 1;
+  color: var(--text-secondary);
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tactic-score {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.tactic-body {
+  padding: 16px;
+}
+.tactic-positions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+.position-row {
+  display: flex;
+  gap: 10px;
+  font-size: 13px;
+}
+.position-player {
+  font-weight: 600;
+  min-width: 60px;
+}
+.position-player.key {
+  color: #e6a800;
+}
+.position-role {
+  color: var(--text-secondary);
+}
