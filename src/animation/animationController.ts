@@ -40,6 +40,7 @@ export class AnimationController {
   private playerPositions: Map<string, Point>;
   private ballCarrier: string;
   private animFrameId: number | null = null;
+  private pendingTimeout: ReturnType<typeof setTimeout> | null = null;
   private lastTimestamp: number = 0;
   private stepElapsed: number = 0;
   private onChange: (state: AnimationState, players: PlayerAnimState[]) => void;
@@ -90,9 +91,18 @@ export class AnimationController {
 
   play() {
     if (this.state.isPlaying) return;
+    const lastStep = this.result.tactic.steps[this.state.currentStep];
+    if (this.state.currentStep >= this.state.totalSteps - 1 && lastStep && this.stepElapsed >= lastStep.duration) {
+      this.initPositions();
+      this.state.currentStep = 0;
+      this.state.stepProgress = 0;
+      this.stepElapsed = 0;
+    }
     this.state.isPlaying = true;
-    this.lastTimestamp = performance.now();
-    this.tick(this.lastTimestamp);
+    this.animFrameId = requestAnimationFrame((now) => {
+      this.lastTimestamp = now;
+      this.tick(now);
+    });
   }
 
   pause() {
@@ -100,6 +110,10 @@ export class AnimationController {
     if (this.animFrameId !== null) {
       cancelAnimationFrame(this.animFrameId);
       this.animFrameId = null;
+    }
+    if (this.pendingTimeout !== null) {
+      clearTimeout(this.pendingTimeout);
+      this.pendingTimeout = null;
     }
     this.emitChange();
   }
@@ -119,6 +133,7 @@ export class AnimationController {
   }
 
   nextStep() {
+    if (this.state.isPlaying) this.pause();
     if (this.state.currentStep < this.state.totalSteps - 1) {
       this.applyStepEnd(this.state.currentStep);
       this.state.currentStep++;
@@ -129,6 +144,7 @@ export class AnimationController {
   }
 
   prevStep() {
+    if (this.state.isPlaying) this.pause();
     if (this.state.currentStep > 0) {
       this.goToStep(this.state.currentStep - 1);
     }
@@ -151,6 +167,9 @@ export class AnimationController {
     if (this.animFrameId !== null) {
       cancelAnimationFrame(this.animFrameId);
     }
+    if (this.pendingTimeout !== null) {
+      clearTimeout(this.pendingTimeout);
+    }
   }
 
   private applyStepEnd(stepIdx: number) {
@@ -170,7 +189,7 @@ export class AnimationController {
   private tick = (now: number) => {
     if (!this.state.isPlaying) return;
 
-    const delta = (now - this.lastTimestamp) * this.state.speed;
+    const delta = Math.max(0, (now - this.lastTimestamp) * this.state.speed);
     this.lastTimestamp = now;
     const step = this.result.tactic.steps[this.state.currentStep];
 
@@ -196,11 +215,14 @@ export class AnimationController {
           this.state.currentStep++;
           this.state.stepProgress = 0;
           this.stepElapsed = 0;
-          // Brief pause between steps
-          setTimeout(() => {
+          this.emitChange();
+          this.pendingTimeout = setTimeout(() => {
+            this.pendingTimeout = null;
             if (this.state.isPlaying) {
-              this.lastTimestamp = performance.now();
-              this.animFrameId = requestAnimationFrame(this.tick);
+              this.animFrameId = requestAnimationFrame((now) => {
+                this.lastTimestamp = now;
+                this.tick(now);
+              });
             }
           }, 500 / this.state.speed);
           return;

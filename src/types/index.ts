@@ -1,5 +1,7 @@
 export type GameMode = '3v3' | '4v4' | '5v5';
 
+export type DefenseType = 'none' | 'man' | 'zone23' | 'zone32';
+
 export type Position = 'PG' | 'SG' | 'SF' | 'PF' | 'C';
 
 export type OffensiveTag =

@@ -43,6 +43,10 @@ const zh = {
     style: '风格',
     board: '战术板',
     realistic: '拟物化',
+    defNone: '无防守',
+    defMan: '一对一',
+    defZone23: '2-3联防',
+    defZone32: '3-2联防',
   },
   positions: {
     PG: '控卫', SG: '分卫', SF: '小前', PF: '大前', C: '中锋',

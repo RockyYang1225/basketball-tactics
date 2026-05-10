@@ -69,13 +69,19 @@ export function drawCourt(ctx: CanvasRenderingContext2D, opts: RenderOptions) {
   ctx.stroke();
 
   // Three-point line
+  const threeR = (40 / 100) * width;
+  const cornerAngle = 0.28;
+  const leftStartAngle = Math.PI - cornerAngle;
+  const rightEndAngle = cornerAngle;
+  const leftCornerX = bx + threeR * Math.cos(leftStartAngle);
+  const leftCornerY = by + threeR * Math.sin(leftStartAngle);
+  const rightCornerX = bx + threeR * Math.cos(rightEndAngle);
+  const rightCornerY = by + threeR * Math.sin(rightEndAngle);
   ctx.beginPath();
-  const threeRadius = (42 / 100) * width;
-  const cornerY = (12 / 100) * height;
-  ctx.moveTo(bx - (44 / 100) * width, 0);
-  ctx.lineTo(bx - (44 / 100) * width, cornerY);
-  ctx.arc(bx, by, threeRadius, Math.PI + 0.3, -0.3);
-  ctx.lineTo(bx + (44 / 100) * width, 0);
+  ctx.moveTo(leftCornerX, 0);
+  ctx.lineTo(leftCornerX, leftCornerY);
+  ctx.arc(bx, by, threeR, leftStartAngle, rightEndAngle, true);
+  ctx.lineTo(rightCornerX, 0);
   ctx.stroke();
 
   // Half-court line (bottom)
@@ -200,16 +206,57 @@ export function drawMovementTrail(
   ctx.stroke();
 }
 
-export function drawScreenSymbol(
+export function drawScreenBlock(
   ctx: CanvasRenderingContext2D,
-  pos: Point,
+  screener: Point,
+  defender: Point,
   opts: RenderOptions
 ) {
-  const { cx, cy } = toCanvas(pos, opts);
+  const s = toCanvas(screener, opts);
+  const d = toCanvas(defender, opts);
+  const dx = s.cx - d.cx;
+  const dy = s.cy - d.cy;
+  const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+  const perpX = -dy / dist;
+  const perpY = dx / dist;
+  const half = 16;
+
   ctx.beginPath();
-  ctx.moveTo(cx - 10, cy);
-  ctx.lineTo(cx + 10, cy);
+  ctx.moveTo(s.cx - perpX * half, s.cy - perpY * half);
+  ctx.lineTo(s.cx + perpX * half, s.cy + perpY * half);
   ctx.strokeStyle = '#e74c3c';
-  ctx.lineWidth = 3;
+  ctx.lineWidth = 5;
+  ctx.lineCap = 'round';
   ctx.stroke();
+  ctx.lineCap = 'butt';
+}
+
+export function drawDefenders(
+  ctx: CanvasRenderingContext2D,
+  defenders: Point[],
+  opts: RenderOptions
+) {
+  const radius = Math.max(11, opts.width * 0.028);
+
+  for (const d of defenders) {
+    const { cx, cy } = toCanvas(d, opts);
+
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(217, 83, 79, 0.25)';
+    ctx.fill();
+    ctx.strokeStyle = '#d9534f';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    const s = radius * 0.45;
+    ctx.beginPath();
+    ctx.moveTo(cx - s, cy - s);
+    ctx.lineTo(cx + s, cy + s);
+    ctx.moveTo(cx + s, cy - s);
+    ctx.lineTo(cx - s, cy + s);
+    ctx.strokeStyle = '#d9534f';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  }
 }

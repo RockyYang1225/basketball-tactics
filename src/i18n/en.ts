@@ -45,6 +45,10 @@ const en: Translations = {
     style: 'Style',
     board: 'Board',
     realistic: 'Realistic',
+    defNone: 'No Defense',
+    defMan: 'Man-to-Man',
+    defZone23: '2-3 Zone',
+    defZone32: '3-2 Zone',
   },
   positions: {
     PG: 'PG', SG: 'SG', SF: 'SF', PF: 'PF', C: 'C',
