@@ -76,7 +76,6 @@ export function drawCourt(ctx: CanvasRenderingContext2D, opts: RenderOptions) {
   const leftCornerX = bx + threeR * Math.cos(leftStartAngle);
   const leftCornerY = by + threeR * Math.sin(leftStartAngle);
   const rightCornerX = bx + threeR * Math.cos(rightEndAngle);
-  const rightCornerY = by + threeR * Math.sin(rightEndAngle);
   ctx.beginPath();
   ctx.moveTo(leftCornerX, 0);
   ctx.lineTo(leftCornerX, leftCornerY);
